@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import axios, { toFormData } from "axios";
+import axios from "axios";
 
 const AddTodos = () => {
     const navigate = useNavigate();
@@ -9,9 +9,8 @@ const AddTodos = () => {
         // collect form input
         const formData = new FormData(event.target)
         // Post data to todo api
-          await axios.post("https://todoapi-9uev.onrender.com/todos", {
-            title: formData.get('todo')
-          })
+          await axios.post(`${import.meta.env.VITE_BASE_URL}/todos`,formData);
+          
         // Goto the homepage
         navigate('/');
 
@@ -21,7 +20,8 @@ const AddTodos = () => {
         <div>
             <h1>Add A New Todo</h1>
             <form onSubmit={saveTodo}>
-                <input type="Text" placeholder="Enter Todo" required name="todo" /> 
+                <input type="text" placeholder="Enter Todo" required name="title" /> 
+                <input type="file" required name="icon" />
                 <button type="submit">Submit</button>
             </form>
         </div>
